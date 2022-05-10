@@ -4,15 +4,17 @@ body{
     // width: 715px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
     justify-content: center;
     p{
-
+        
         margin: 100px auto;
     }
     .text-area{
-        margin: 0 auto;
+        border-radius: 10px;
+        margin: 100px auto;
+        height: 150px;
         width: 715px;
+        font-size: 24px;
     }
     .wrapper{
         // display: flex;
@@ -20,6 +22,7 @@ body{
         // flex-direction: column;
         margin: 0 auto;
         .keyboard{
+            box-shadow: 0px 3px 5px $active-color;
             margin: 0 auto;
             background: #585858;
             // margin: 4px 0;
