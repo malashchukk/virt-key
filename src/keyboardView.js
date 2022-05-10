@@ -5,17 +5,18 @@ const properties = {
     value: null,
     caps: false,
     shift: true,
-    lang: null, //0 - eng, 1 - rus
+    lang: 0, //0 - eng, 1 - rus
 }
+window.name = window.name === '' ? 0 : window.name;
 console.log(window.name)
 
 
-if (window.name == false){
-    window.name = 0;
-}
-console.log(window.name)
-window.name = properties.lang === null ? window.name : properties.lang;
-properties.lang = properties.lang === null ? window.name : properties.lang;
+// if (window.name == false){
+//     window.name = 0;
+// }
+// console.log(window.name)
+// window.name = properties.lang === null ? window.name : properties.lang;
+// properties.lang = properties.lang === null ? window.name : properties.lang;
 
 const TEXTAREA = document.createElement('textarea');
 TEXTAREA.classList.add('text-area');
@@ -174,7 +175,7 @@ let keys = {
     KeyM: ["m", "ь"],
     Comma: [",", "б"],
     Period: [".", "ю"],
-    Slash: ["/", "."],
+    Slash: [" /", "."],
     ArrowUp: "&#11165;",
     ShiftRight: "Shift",
     
@@ -189,13 +190,24 @@ let keys = {
     ControlRight: "Ctrl",
     
     };
+    // let num = 0;
+    function createElement(){
+        
+        for (let key in keys) {
+            const keyElement = document.createElement('div');
+            
+            let keydownFunc = function (event){
 
-function createElement(){
-
-    for (let key in keys) {
-        const keyElement = document.createElement('div');
-    
-    
+                // console.log(num);
+                if (event.code == key){
+                    TEXTAREA.value += keyElement.innerText;
+                    keyElement.firstChild.classList.remove('inactive');
+                    keyElement.firstChild.classList.add('active');
+                    
+                }
+                
+            }
+            
     
         const createIconHtml = (icon_name) => {
             // if (properties.caps == false){
@@ -212,7 +224,7 @@ function createElement(){
         
         // key = key.substring(0, key.length - 1);
     
-     
+        
         switch (key.substring(0, key.length - 1)) {
     
     
@@ -225,7 +237,7 @@ function createElement(){
     
                 keyElement.addEventListener('mousedown', () => {
                     TEXTAREA.value += keyElement.innerText;
-                    console.log(keyElement.innerHTML);
+
                     keyElement.firstChild.classList.remove('inactive');
                     keyElement.firstChild.classList.add('active');
                 })
@@ -240,10 +252,13 @@ function createElement(){
                 });
                 document.addEventListener('keydown', (event) => {
                     
-                    if (event.key == keys[key]){
+                    if (event.key === keys[key]){
                         TEXTAREA.value += keyElement.innerText;
+                        
+                        console.log(keyElement.innerHTML);
                         keyElement.firstChild.classList.remove('inactive');
                         keyElement.firstChild.classList.add('active');
+                        // document.removeEventListener('keydown')
                     }
                 });
                 break;
@@ -252,19 +267,12 @@ function createElement(){
                 q = key.slice(-1).toUpperCase();
     
                 // console.log(keys[`Key ${q}` ][0])
-                keyElement.innerHTML = createIconHtml(keys[`Key${q}`][properties.lang]);
+                keyElement.innerHTML = createIconHtml(keys[`Key${q}`][window.name]);
                 // console.log(key.slice(-1)[0])
                 
                 keyElement.addEventListener('mousedown', () => {
     
                     TEXTAREA.value += keyElement.innerText;
-                    // if( properties.caps === true){
-                    //     TEXTAREA.value += keys[key].toUpperCase();
-    
-                    // } else {
-    
-                    //     TEXTAREA.value += keys[key].toLowerCase();
-                    // }
                     keyElement.firstChild.classList.remove('inactive');
                     keyElement.firstChild.classList.add('active');
                 });
@@ -277,14 +285,9 @@ function createElement(){
                     keyElement.firstChild.classList.remove('active');
                     keyElement.firstChild.classList.add('inactive');
                 });
-                document.addEventListener('keydown', (event) => {
-    
-                    if (event.code == key){
-                        TEXTAREA.value += keyElement.innerText;
-                        keyElement.firstChild.classList.remove('inactive');
-                        keyElement.firstChild.classList.add('active');
-                    }
-                });
+
+                document.addEventListener('keydown', keydownFunc);
+                
                 break;
     
             case 'Backspac':
@@ -309,6 +312,7 @@ function createElement(){
                     keyElement.firstChild.classList.add('inactive');
                 });
                 document.addEventListener('keydown', (event) => {
+                    // num++;
                     if (event.code == key){
                         cursorPosition = TEXTAREA.selectionStart;
                         if (cursorPosition <= TEXTAREA.value.length && cursorPosition > 0){
@@ -768,7 +772,7 @@ function createElement(){
             default:
                 // console.log(keys[key].length)
                 if (Array.isArray(keys[key])){
-                    keyElement.innerHTML = createIconHtml(keys[key][properties.lang ]);
+                    keyElement.innerHTML = createIconHtml(keys[key][window.name]);
                 } else {
                     keyElement.innerHTML = createIconHtml(keys[key])
                     // console.log(keyElement.innerHTML);
@@ -824,13 +828,45 @@ createElement();
 function doc_keyUp(e) {
 
     // this would test for whichever key is 40 (down arrow) and the ctrl key at the same time
+    let elems = document.querySelectorAll('.key');
     if (e.ctrlKey && e.altKey) {
         // call your function to do the thing
         properties.lang = properties.lang === 1 ? 0 : 1;
+
         window.name = properties.lang;
-        // console.log(window.name);
-        document.querySelector('.keyboard').innerHTML = '';
-        createElement();
+        console.log(window.name);
+        // const getKeyByValue = (obj, value) => 
+        // Object.keys(obj).find(key => obj[key][0] === value);
+        for (let i of elems){
+            if (i.innerHTML.length === 1){
+                let key = Object.keys(keys).find(key => keys[key][0] === i.innerHTML);
+                // let value = i.innerHTML;
+                if (keys[key] && keys[key].length === 2){
+                    i.innerHTML = keys[key][window.name];
+                    // console.log(keys[key]);
+                }
+
+            }
+            if (i.innerHTML.length === 1){
+                const key = Object.keys(keys).find(key => keys[key][1] === i.innerHTML);
+                // let value = i.innerHTML;
+                if (keys[key] && keys[key].length === 2){
+                    i.innerHTML = keys[key][window.name];
+                    // console.log(keys[key]);
+                }
+
+            }
+        }
+        // elems.forEach(i => console.log(i.innerHTML));
+        // getKeyByValue(keys, i.innerHTML )
+        // document.querySelectorAll('key').forEach((elem) => {
+            
+        //     elem.parentElement.removeEventListener('keydown', () => {});
+        // })
+
+        // document.querySelector('.keyboard').innerHTML = '';
+        // createElement();
+        // console.dir(window)
         
     }
 }
