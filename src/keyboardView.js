@@ -8,7 +8,7 @@ let properties = {
     lang: 0, //0 - eng, 1 - rus
 }
 window.name = window.name === '' ? 0 : window.name;
-console.log(window.name)
+// console.log(window.name)
 properties.caps = false;
 zeros();
 
@@ -24,7 +24,7 @@ TEXTAREA.classList.add('text-area');
 TEXTAREA.rows = '5';
 TEXTAREA.cols = '50';
 
-console.log(TEXTAREA.value)
+// console.log(TEXTAREA.value)
 // let text = TEXTAREA.value;
 
 document.body.append(TEXTAREA);
@@ -262,7 +262,7 @@ let keys = {
                     if (event.key === keys[key]){
                         TEXTAREA.value += keyElement.innerText;
                         
-                        console.log(keyElement.innerHTML);
+                        // console.log(keyElement.innerHTML);
                         keyElement.firstChild.classList.remove('inactive');
                         keyElement.firstChild.classList.add('active');
                         // document.removeEventListener('keydown')
@@ -375,7 +375,7 @@ let keys = {
     
                         TEXTAREA.value = TEXTAREA.value.slice(0, cursorPosition) + TEXTAREA.value.slice(cursorPosition+1);
                     }
-                    console.log(cursorPosition);
+                    // console.log(cursorPosition);
                     keyElement.firstChild.classList.remove('inactive');
                     keyElement.firstChild.classList.add('active');
                 });
@@ -396,7 +396,7 @@ let keys = {
         
                             TEXTAREA.value = TEXTAREA.value.slice(0, cursorPosition) + TEXTAREA.value.slice(cursorPosition+1);
                         }
-                        console.log(cursorPosition);
+                        // console.log(cursorPosition);
                         keyElement.firstChild.classList.remove('inactive');
                         keyElement.firstChild.classList.add('active');
                     }
@@ -409,7 +409,7 @@ let keys = {
                 keyElement.innerHTML = createIconHtml(key);
     
                 keyElement.addEventListener('mousedown', () => {
-                        console.log(properties.caps);
+                        // console.log(properties.caps);
                     if (properties.caps === true){
                         properties.caps = false;
                     } else {
@@ -442,7 +442,7 @@ let keys = {
         
                         }
 
-                        console.log(window.name);
+                        // console.log(window.name);
     
                         caps();
                         if (keyElement.firstChild.classList.value.includes('inactive')){
@@ -462,12 +462,12 @@ let keys = {
                 keyElement.innerHTML = createIconHtml(key);
     
                 keyElement.addEventListener('mousedown', () => {
-                    console.log(properties.value);
+                    // console.log(properties.value);
     
                     cursorPosition = TEXTAREA.selectionStart;
-                    console.log(cursorPosition);
+                    // console.log(cursorPosition);
                     TEXTAREA.value += '\n';
-                    console.log(TEXTAREA.value);
+                    // console.log(TEXTAREA.value);
                     keyElement.firstChild.classList.remove('inactive');
                     keyElement.firstChild.classList.add('active');
                 });
@@ -483,12 +483,12 @@ let keys = {
                     event.preventDefault();
     
                     if (event.code == key){
-                        console.log(properties.value);
+                        // console.log(properties.value);
     
                         cursorPosition = TEXTAREA.selectionStart;
-                        console.log(cursorPosition);
+                        // console.log(cursorPosition);
                         TEXTAREA.value += '\n';
-                        console.log(TEXTAREA.value);
+                        // console.log(TEXTAREA.value);
                         keyElement.firstChild.classList.remove('inactive');
                         keyElement.firstChild.classList.add('active');
                     }
@@ -512,7 +512,7 @@ let keys = {
                     
                 });
                 keyElement.addEventListener('mouseup', () => {
-                        console.log(123);
+                        // console.log(123);
                         properties.shift = false;
                         keyElement.firstChild.classList.remove('active');
                         keyElement.firstChild.classList.add('inactive');
@@ -559,7 +559,7 @@ let keys = {
                     
                 });
                 keyElement.addEventListener('mouseup', () => {
-                        console.log(123);
+                        // console.log(123);
                         properties.shift = false;
                         keyElement.firstChild.classList.remove('active');
                         keyElement.firstChild.classList.add('inactive');
@@ -842,7 +842,7 @@ function doc_keyUp(e) {
         properties.lang = properties.lang === 1 ? 0 : 1;
 
         window.name = properties.lang;
-        console.log(window.name);
+        // console.log(window.name);
         // const getKeyByValue = (obj, value) => 
         // Object.keys(obj).find(key => obj[key][0] === value);
         for (let i of elems){
