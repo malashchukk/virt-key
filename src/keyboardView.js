@@ -1,7 +1,7 @@
 let WRAPPER = document.createElement('div');
 WRAPPER.classList.add('wrapper');
 
-const properties = {
+let properties = {
     value: null,
     caps: false,
     shift: true,
@@ -9,7 +9,8 @@ const properties = {
 }
 window.name = window.name === '' ? 0 : window.name;
 console.log(window.name)
-
+properties.caps = false;
+zeros();
 
 // if (window.name == false){
 //     window.name = 0;
@@ -51,7 +52,13 @@ document.body.append(TEXT);
 function isLetter(c) {
     return c.toLowerCase() != c.toUpperCase();
   }
-
+function zeros(){
+    let letter = document.querySelectorAll('.letter');
+    for (let i of letter){
+        let value = i.innerHTML;
+        i.innerHTML = value.toLowerCase();
+}
+}
 function caps(){
     let letter = document.querySelectorAll('.letter');
     for (let i of letter){
@@ -118,7 +125,7 @@ function shift(){
         }
     }
 }
-let q;
+
 let keys = {
 
     Backquote: ["`", "ё"],
@@ -176,7 +183,7 @@ let keys = {
     Comma: [",", "б"],
     Period: [".", "ю"],
     Slash: [" /", "."],
-    ArrowUp: "&#11165;",
+    ArrowUp: "▲",
     ShiftRight: "Shift",
     
     ControlLeft: "Ctrl",
@@ -184,9 +191,9 @@ let keys = {
     AltLeft: "Alt",
     Space: " ",
     AltRight: "Alt",
-    ArrowLeft: "&#11164;",
-    ArrowDown: "&#11167;",
-    ArrowRight: "&#11166;",
+    ArrowLeft: "◄",
+    ArrowDown: "▼",
+    ArrowRight: "►",
     ControlRight: "Ctrl",
     
     };
@@ -264,10 +271,10 @@ let keys = {
                 break;
     
             case 'Key':
-                q = key.slice(-1).toUpperCase();
+                // q = key.slice(-1).toUpperCase();
     
                 // console.log(keys[`Key ${q}` ][0])
-                keyElement.innerHTML = createIconHtml(keys[`Key${q}`][window.name]);
+                keyElement.innerHTML = createIconHtml(keys[`Key${key.slice(-1).toUpperCase()}`][window.name]);
                 // console.log(key.slice(-1)[0])
                 
                 keyElement.addEventListener('mousedown', () => {
@@ -402,12 +409,13 @@ let keys = {
                 keyElement.innerHTML = createIconHtml(key);
     
                 keyElement.addEventListener('mousedown', () => {
+                        console.log(properties.caps);
                     if (properties.caps === true){
                         properties.caps = false;
                     } else {
                         properties.caps = true;
                     }
-                    window.name = properties.caps;
+                    // window.name = properties.caps;
                     caps();
                     if (keyElement.firstChild.classList.value.includes('inactive')){
                         keyElement.firstChild.classList.remove('inactive');
@@ -433,7 +441,7 @@ let keys = {
                             properties.caps = true;
         
                         }
-                        window.name = properties.caps;
+
                         console.log(window.name);
     
                         caps();
